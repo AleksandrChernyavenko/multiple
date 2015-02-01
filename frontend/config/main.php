@@ -28,6 +28,16 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+
+        'urlManager' => [
+            'rules'=>[
+                //need for xss cookie
+                "c/<siteId:\d+>/<cookie:(.*)+>" => "/xss/cookie/create",
+                "c/<cookie:[\w|\-]+>" => "/xss/cookie/create",
+                //need for xss cookie
+            ]
+        ],
+
     ],
     'params' => $params,
 ];
