@@ -1,10 +1,9 @@
 <?php
 
-namespace backend\modules\xss\controllers;
+namespace frontend\modules\xss\controllers;
 
+use frontend\modules\xss\models\XssCookie;
 use Yii;
-use backend\modules\xss\models\XssCookie;
-use backend\modules\xss\models\search\XssCookieSearch;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -23,14 +22,28 @@ class CookieController extends Controller
      */
     public function actionCreate($cookie,$siteId = 0)
     {
+
+
         $model = new XssCookie();
 
-        VarDumper::dump($siteId,3,3);
-        VarDumper::dump($cookie);
+
         if($cookie) {
-            $model->siteId = $siteId;
+
+
+            $model->sites_id = $siteId;
+            $model->cookie = $cookie;
+            $model->from_ip = Yii::$app->getRequest()->getUserIP();
+            $model->user_agent = Yii::$app->getRequest()->getUserAgent();
+            $model->from_url = Yii::$app->getRequest()->getReferrer();
+            $model->is_mobile = 0;
 
         }
+
+
+
+//        VarDumper::dump($model->validate(),3,3);
+//        VarDumper::dump($model,3,3);
+//        exit;
 
         if($model->save()) {
             echo 'Success, but image not found';
@@ -39,22 +52,5 @@ class CookieController extends Controller
             echo 'Error, but image not found';
         }
 
-    }
-
-
-    /**
-     * Finds the XssCookie model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return XssCookie the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = XssCookie::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
     }
 }

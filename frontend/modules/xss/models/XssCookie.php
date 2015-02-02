@@ -6,14 +6,14 @@
  * Time: 20:06
  */
 
-namespace backend\modules\xss\models;
+namespace frontend\modules\xss\models;
 
-use backend\models\BackendModel;
-use yii\behaviors\TimestampBehavior;
+use common\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * Class XssCookie
- * @package backend\modules\xss\models
+ * @package frontend\modules\xss\models
  *
  * @property integer $id
  * @property integer $sites_id
@@ -24,7 +24,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $is_mobile
  * @property string $cookie
  */
-class XssCookie extends BackendModel
+class XssCookie extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -71,7 +71,7 @@ class XssCookie extends BackendModel
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            'class'=>TimestampBehavior::className(),
         ];
     }
 }

@@ -26,7 +26,7 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'site/empty-error',
         ],
 
         'urlManager' => [
@@ -39,5 +39,12 @@ return [
         ],
 
     ],
+
+    'modules'=> [
+        'xss'=> [
+            'class'=>'frontend\modules\xss\XssModule'
+        ],
+    ],
+
     'params' => $params,
 ];
