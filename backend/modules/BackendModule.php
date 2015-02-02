@@ -9,7 +9,7 @@
 namespace backend\modules;
 
 use yii\base\Module;
-use yii\web\NotAcceptableHttpException;
+use yii\web\ForbiddenHttpException;
 
 class BackendModule extends Module
 {

@@ -2,7 +2,9 @@
 
 namespace backend\modules\xss;
 
-class XssModule extends \yii\base\Module
+use backend\modules\BackendModule;
+
+class XssModule extends BackendModule
 {
     public $controllerNamespace = 'backend\modules\xss\controllers';
 

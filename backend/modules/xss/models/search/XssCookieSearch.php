@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\modules\xss\models\XssCookie;
+use yii\helpers\VarDumper;
 
 /**
  * XssCookieSearch represents the model behind the search form about `backend\modules\xss\models\XssCookie`.
@@ -45,6 +46,13 @@ class XssCookieSearch extends XssCookie
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 100,
+            ],
+            'sort' =>[
+                'defaultOrder' => ['id'=>SORT_DESC],
+            ]
+
         ]);
 
         $this->load($params);

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\XssCookieSearch */
+/* @var $searchModel \backend\modules\xss\models\search\XssCookieSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Xss Cookies';
@@ -28,11 +28,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'sites_id',
             'created_at',
-            'from_url:ntext',
+            'from_url',
             'from_ip',
-            // 'user_agent:ntext',
+//             'user_agent:ntext',
             // 'is_mobile',
-            // 'cookie:ntext',
+             'cookie:ntext',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

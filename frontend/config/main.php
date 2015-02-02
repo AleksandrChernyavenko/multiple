@@ -33,7 +33,7 @@ return [
             'rules'=>[
                 //need for xss cookie
                 "c/<siteId:\d+>/<cookie:(.*)+>" => "/xss/cookie/create",
-                "c/<cookie:[\w|\-]+>" => "/xss/cookie/create",
+                "c/<cookie:(.*)>" => "/xss/cookie/create",
                 //need for xss cookie
             ]
         ],
