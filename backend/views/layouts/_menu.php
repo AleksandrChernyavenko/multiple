@@ -12,6 +12,7 @@ $menuItems = [
 if (Yii::$app->user->isGuest) {
     $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
 } else {
+    //xss
     $menuItems[] = [
         'label' => 'Xss',
         'items'=>[
@@ -23,6 +24,36 @@ if (Yii::$app->user->isGuest) {
                 'label' => 'Xss_Cookie',
                 'url' => ['/xss/cookie/index'],
             ]
+        ]
+    ];
+    //dorgen
+    $menuItems[] = [
+        'label' => 'Дорвеи',
+        'items'=>[
+            [
+                'label' => 'Сайты',
+                'url' => ['/dorgen/dorgen-sites/index'],
+            ],
+            [
+                'label' => 'CrawlerUrls',
+                'url' => ['/dorgen/dorgen-crawler-urls/index'],
+            ],
+            [
+                'label' => 'CrawlerRules',
+                'url' => ['/dorgen/dorgen-crawler-rules/index'],
+            ],
+            [
+                'label' => 'SpiderTranslate',
+                'url' => ['/dorgen/dorgen-spider-translate/index'],
+            ],
+            [
+                'label' => 'Indexer',
+                'url' => ['/dorgen/dorgen-indexer/index'],
+            ],
+            [
+                'label' => 'IndexerRules',
+                'url' => ['/dorgen/dorgen-indexer-rules/index'],
+            ],
         ]
     ];
     $menuItems[] = [

@@ -34,6 +34,7 @@ class DorgenSites extends \backend\models\BackendModel
             [['status'], 'string'],
             [['name', 'url', 'description', 'host'], 'string', 'max' => 255],
             [['url'], 'unique'],
+            [['url'], 'url'],
             [['host'], 'unique']
         ];
     }
