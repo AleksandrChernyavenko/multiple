@@ -17,6 +17,7 @@ use Yii;
  * @property string $error_response
  *
  * @property-read DorgenCrawlerRules $rules
+ * @property-read \backend\modules\dorgen\models\DorgenSites $site
  */
 class DorgenCrawlerUrls extends \backend\models\BackendModel
 {
@@ -68,5 +69,13 @@ class DorgenCrawlerUrls extends \backend\models\BackendModel
     public function getRules()
     {
         return $this->hasMany(DorgenCrawlerRules::className(),['site_id'=>'dorgen_site_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSite()
+    {
+        return $this->hasOne(DorgenSites::className(),['id'=>'dorgen_site_id']);
     }
 }

@@ -13,12 +13,31 @@
         "source": "https://github.com/yiisoft/yii2"
     },
     "minimum-stability": "stable",
+
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                    "name": "googlecode/phpquery",
+                    "version": "0.9.5",
+                    "dist"  : {
+                        "type"  : "zip",
+                        "url"  : "http://phpquery.googlecode.com/files/phpQuery-0.9.5.386.zip"
+                    },
+                    "autoload": {
+                        "classmap"  : ["phpQuery/phpQuery.php"]
+                    }
+            }
+        }
+    ],
+
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
-        "kartik-v/yii2-widgets": "*"
+        "kartik-v/yii2-widgets": "*",
+        "googlecode/phpquery": "0.9.5"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

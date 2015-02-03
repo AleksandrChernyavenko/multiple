@@ -118,8 +118,39 @@ class Crawler
      *
      */
     protected function saveLinks($page) {
-        VarDumper::dump($this->model,3,3);
-        VarDumper::dump($page,3,3);
+
+        $links = $this->getLinks($page);
+
+        if(empty($links)) {
+            return 0;
+        }
+
+        $links = $this->normalizeLinks($links, $this->model->site->url);
+
+        VarDumper::dump($links,3,3);
+        exit;
+
+    }
+
+    protected function getLinks($page)
+    {
+        $page = \phpQuery::newDocumentHTML($page);
+
+        $links = [];
+
+        foreach( $page->find('a') as $link)
+        {
+            $link = pq($link)->attr('href');
+            $links[$link] = $link;
+        }
+        return $links;
+    }
+
+    protected function normalizeLinks($links, $canonicalUrl)
+    {
+
+        VarDumper::dump($canonicalUrl,3,3);
+        VarDumper::dump($links,3,3);
         exit;
     }
 
