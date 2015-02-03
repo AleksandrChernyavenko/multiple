@@ -2,12 +2,13 @@
 
 namespace backend\modules\dorgen\controllers;
 
-use Yii;
+use backend\modules\dorgen\components\Crawler;
 use backend\modules\dorgen\models\DorgenCrawlerUrls;
 use backend\modules\dorgen\models\search\DorgenCrawlerUrlsSearch;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * DorgenCrawlerUrlsController implements the CRUD actions for DorgenCrawlerUrls model.
@@ -48,6 +49,10 @@ class DorgenCrawlerUrlsController extends Controller
      */
     public function actionView($id)
     {
+        $crawler = new Crawler();
+        $crawler->run();
+        exit;
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

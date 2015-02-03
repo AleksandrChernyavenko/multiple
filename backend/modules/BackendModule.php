@@ -15,7 +15,7 @@ class BackendModule extends Module
 {
     public function beforeAction($action)
     {
-        if(\Yii::$app->getUser()->isGuest) {
+        if(\Yii::$app->has('user') && \Yii::$app->getUser()->isGuest) {
             throw new ForbiddenHttpException;
         }
         return parent::beforeAction($action);

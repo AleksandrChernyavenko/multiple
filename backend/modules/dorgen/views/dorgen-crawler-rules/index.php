@@ -41,7 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'required:boolean',
             'value:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+            ],
         ],
     ]); ?>
 

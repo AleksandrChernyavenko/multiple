@@ -2,12 +2,12 @@
 
 namespace backend\modules\dorgen\controllers;
 
-use Yii;
 use backend\modules\dorgen\models\DorgenCrawlerRules;
 use backend\modules\dorgen\models\search\DorgenCrawlerRulesSearch;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * DorgenCrawlerRulesController implements the CRUD actions for DorgenCrawlerRules model.

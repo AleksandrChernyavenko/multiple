@@ -15,9 +15,16 @@ use Yii;
  * @property string $start_time
  * @property string $end_time
  * @property string $error_response
+ *
+ * @property-read DorgenCrawlerRules $rules
  */
 class DorgenCrawlerUrls extends \backend\models\BackendModel
 {
+
+    const STATUS_NEW = 'new';
+    const STATUS_SUCCESS = 'success';
+    const STATUS_ERROR = 'error';
+    const STATUS_IN_WORK = 'in_work';
     /**
      * @inheritdoc
      */
@@ -56,5 +63,10 @@ class DorgenCrawlerUrls extends \backend\models\BackendModel
             'end_time' => 'End Time',
             'error_response' => 'Error Response',
         ];
+    }
+
+    public function getRules()
+    {
+        return $this->hasMany(DorgenCrawlerRules::className(),['site_id'=>'dorgen_site_id']);
     }
 }
