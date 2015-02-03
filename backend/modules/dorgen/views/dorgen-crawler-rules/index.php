@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\dorgen\models\search\DorgenCrawlerRulesSearch */
@@ -26,11 +26,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'site_id',
+            [
+                'attribute' => 'site',
+                'value' => function($model) {
+                    /* @var $model backend\modules\dorgen\models\DorgenCrawlerRules */
+                    $site = $model->site;
+                    return  $site ? $site->displayName : '';
+
+                }
+            ],
+
             'name',
             'type',
-            'required',
-            // 'value:ntext',
+            'required:boolean',
+            'value:ntext',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

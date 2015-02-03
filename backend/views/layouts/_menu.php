@@ -35,12 +35,16 @@ if (Yii::$app->user->isGuest) {
                 'url' => ['/dorgen/dorgen-sites/index'],
             ],
             [
-                'label' => 'CrawlerUrls',
-                'url' => ['/dorgen/dorgen-crawler-urls/index'],
-            ],
-            [
                 'label' => 'CrawlerRules',
                 'url' => ['/dorgen/dorgen-crawler-rules/index'],
+            ],
+            [
+                'label' => 'IndexerRules',
+                'url' => ['/dorgen/dorgen-indexer-rules/index'],
+            ],
+            [
+                'label' => 'CrawlerUrls',
+                'url' => ['/dorgen/dorgen-crawler-urls/index'],
             ],
             [
                 'label' => 'SpiderTranslate',
@@ -49,10 +53,6 @@ if (Yii::$app->user->isGuest) {
             [
                 'label' => 'Indexer',
                 'url' => ['/dorgen/dorgen-indexer/index'],
-            ],
-            [
-                'label' => 'IndexerRules',
-                'url' => ['/dorgen/dorgen-indexer-rules/index'],
             ],
         ]
     ];
