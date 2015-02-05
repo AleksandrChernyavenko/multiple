@@ -40,6 +40,11 @@ class DorgenCrawlerUrls extends \backend\models\BackendModel
     public function rules()
     {
         return [
+            //default value
+            [['status'],'default', 'value' => self::STATUS_NEW],
+            //filter
+            [['url'], 'filter', 'filter' => 'trim'],
+
             [['dorgen_site_id', 'url'], 'required'],
             [['dorgen_site_id', 'is_article'], 'integer'],
             [['status', 'error_response'], 'string'],

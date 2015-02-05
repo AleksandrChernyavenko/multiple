@@ -18,6 +18,12 @@ use Yii;
  */
 class DorgenCrawlerRules extends \backend\models\BackendModel
 {
+
+    const TYPE_URL_REGEX = 'url_regex';
+    const TYPE_HTML_REGEX = 'html_regex';
+
+    const REG_EX_TAG = '~';
+
     /**
      * @inheritdoc
      */
@@ -52,6 +58,18 @@ class DorgenCrawlerRules extends \backend\models\BackendModel
             'required' => 'Required',
             'value' => 'Value',
         ];
+    }
+
+    public function isArticle($url,$page) {
+        if($this->type == self::TYPE_URL_REGEX) {
+            $subject  = $url;
+        }
+        elseif($this->type == self::TYPE_HTML_REGEX) {
+            $subject  = $page;
+        }
+
+        $pattern = self::REG_EX_TAG.$this->value.self::REG_EX_TAG;
+        return preg_match($pattern,$subject);
     }
 
     /**

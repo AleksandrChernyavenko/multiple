@@ -99,8 +99,22 @@ class Crawler
 
     protected function isArticle($model,$rules,$page)
     {
-        VarDumper::dump('isArticle',3,3);
-        return 1;
+        $isArticle = null;
+
+        foreach($rules as $rule) {
+
+            if($rule->required) {
+                //если правило обязательно и другое оязательное правило не вывявило $isArticle=false
+                $setArticle = is_null($isArticle) ? true : $isArticle;
+                $isArticle = $setArticle && $rule->isArticle($model->url,$page);
+            }
+            elseif(is_null($isArticle) && $rule->isArticle($model->url,$page)){
+                $isArticle = true;
+            }
+
+        }
+
+        return  (bool)$isArticle;
     }
 
 
@@ -127,6 +141,16 @@ class Crawler
 
         $links = $this->normalizeLinks($links, $this->model->site->url);
 
+
+
+        foreach($links as $link)
+        {
+            $model = new DorgenCrawlerUrls();
+            $model->url = $link;
+            $model->dorgen_site_id =   $this->model->dorgen_site_id;
+            $model->save();
+        }
+
         VarDumper::dump($links,3,3);
         exit;
 
@@ -148,10 +172,25 @@ class Crawler
 
     protected function normalizeLinks($links, $canonicalUrl)
     {
+        foreach($links as $index=>&$link) {
 
-        VarDumper::dump($canonicalUrl,3,3);
-        VarDumper::dump($links,3,3);
-        exit;
+            if(strpos($link,'http') !== 0) { //добавляем в url host ,если у нас относительная ссылка
+
+                $link = $canonicalUrl.$link;
+                //удаляем сдвоенные слкеши кроме тех что идут в http://
+                $link = preg_replace('~(?<!:)//~','/',$link);
+            }
+
+            //удаляем ссылки на другие ресурсы
+            if(strpos($link,$canonicalUrl) !== 0) {
+                unset($links[$index]);
+            }
+
+
+        }
+
+        return $links;
+
     }
 
 }
