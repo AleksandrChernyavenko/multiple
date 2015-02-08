@@ -10,7 +10,6 @@ namespace backend\modules\dorgen\components;
 
 use backend\modules\dorgen\models\DorgenCrawlerUrls;
 use yii\db\Expression;
-use yii\helpers\VarDumper;
 
 /**
  * Class Crawler
@@ -53,15 +52,15 @@ class Crawler
             return false;
         }
 
+        $this->model->start_time = new Expression('NOW()');
+        $this->model->status = DorgenCrawlerUrls::STATUS_IN_WORK;
+        $this->model->save();
+
         $this->rules = $this->model->rules;
 
         if(!$this->rules) {
             return false;
         }
-
-        $this->model->start_time = new Expression('NOW()');
-        $this->model->status = DorgenCrawlerUrls::STATUS_IN_WORK;
-        $this->model->save();
 
 
         try {
@@ -123,7 +122,7 @@ class Crawler
      */
     protected function getModel()
     {
-        $model = DorgenCrawlerUrls::findOne('1');
+        $model = DorgenCrawlerUrls::findOne(['status'=>DorgenCrawlerUrls::STATUS_NEW]);
         return  $model ? $model : false;
     }
 
@@ -151,8 +150,7 @@ class Crawler
             $model->save();
         }
 
-        VarDumper::dump($links,3,3);
-        exit;
+
 
     }
 
@@ -186,9 +184,12 @@ class Crawler
                 unset($links[$index]);
             }
 
+            //удаляем "#" из ссылки
+            if(strpos($link,'#') !== false) {
+                $link = substr($link, 0, strpos($link,'#'));
+            }
 
         }
-
         return $links;
 
     }

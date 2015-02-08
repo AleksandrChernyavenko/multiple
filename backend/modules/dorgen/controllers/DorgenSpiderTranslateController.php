@@ -2,12 +2,13 @@
 
 namespace backend\modules\dorgen\controllers;
 
-use Yii;
 use backend\modules\dorgen\models\DorgenSpiderTranslate;
 use backend\modules\dorgen\models\search\DorgenSpiderTranslateSearch;
+use Yii;
+use yii\filters\VerbFilter;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * DorgenSpiderTranslateController implements the CRUD actions for DorgenSpiderTranslate model.
@@ -69,6 +70,22 @@ class DorgenSpiderTranslateController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionFileView($id){
+
+        $model = $this->findModel($id);
+
+        if(file_exists($model->getFilePath())) {
+            echo file_get_contents($model->getFilePath());
+        }
+        else{
+            VarDumper::dump('File not exist',3,3);
+            exit;
+        }
+
+
+
     }
 
     /**

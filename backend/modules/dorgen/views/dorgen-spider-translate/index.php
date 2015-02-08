@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\dorgen\models\search\DorgenSpiderTranslateSearch */
@@ -33,7 +33,18 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'file_name',
             // 'error_response:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template'=>'{file-view} {view} {update} {delete}',
+                'buttons'=>[
+                    'file-view' => function ($url, $model, $key) {
+                               return  Html::a('<span class="glyphicon glyphicon-zoom-in"></span>', $url,[
+                                   'target'=>'_blank',
+                                   'title'=>'Переведенная страница',
+                               ]);
+                     },
+                 ]
+            ],
         ],
     ]); ?>
 

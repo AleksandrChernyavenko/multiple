@@ -9,6 +9,7 @@
 namespace backend\modules\dorgen\console;
 
 use yii\console\Controller;
+use yii\helpers\Console;
 use yii\helpers\FileHelper;
 
 /**
@@ -23,17 +24,18 @@ class ConsoleController extends Controller
 
     const STOP_FILE = 'stop.lock';
 
-    public function __construct($id, $module, $config = [])
+
+    public function beforeAction($action)
     {
         if(!$this->canRun()) {
-            echo 'can\'t run';
+            $this->stdout(PHP_EOL.'Can\'t run'.PHP_EOL.PHP_EOL, Console::FG_RED, Console::UNDERLINE);
             exit(0);
         }
 
         $this->createLockFile();
         register_shutdown_function(array($this, 'registerShutdownFunction')); // the & is important
 
-        parent::__construct($id, $module, $config);
+        return parent::beforeAction($action);
     }
 
     private function canRun()
@@ -82,7 +84,7 @@ class ConsoleController extends Controller
     {
         $pid = getmypid();
         $dir = $this->getPidDir().DIRECTORY_SEPARATOR.$pid;
-        unlink($dir);
+        @unlink($dir);
     }
 
 
@@ -96,6 +98,11 @@ class ConsoleController extends Controller
         $pid = getmypid();
         $dir = $this->getPidDir().DIRECTORY_SEPARATOR.$pid;
         return file_put_contents($dir,$pid);
+    }
+
+    function __destruct()
+    {
+        $this->registerShutdownFunction();
     }
 
 

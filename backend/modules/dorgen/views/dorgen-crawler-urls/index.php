@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\dorgen\models\search\DorgenCrawlerUrlsSearch */
@@ -30,9 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'url:url',
             'status',
             'is_article',
-            // 'start_time',
-            // 'end_time',
-            // 'error_response:ntext',
+             'start_time',
+             'end_time',
+             'error_response:ntext',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
