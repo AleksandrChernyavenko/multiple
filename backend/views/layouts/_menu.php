@@ -35,6 +35,10 @@ if (Yii::$app->user->isGuest) {
                 'url' => ['/dorgen/dorgen-sites/index'],
             ],
             [
+                'label' => 'Настроки сайтов ',
+                'url' => ['/dorgen/dorgen-sites-settings/index'],
+            ],
+            [
                 'label' => 'CrawlerRules',
                 'url' => ['/dorgen/dorgen-crawler-rules/index'],
             ],
