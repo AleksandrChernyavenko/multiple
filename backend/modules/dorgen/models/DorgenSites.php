@@ -53,4 +53,63 @@ class DorgenSites extends \backend\models\BackendModel
             'host' => 'Host',
         ];
     }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        if($insert) {
+            $this->createTablesForDorgen();
+        }
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+
+    private function createTablesForDorgen() {
+        /** @var  \yii\db\Connection $db */
+        $db = Yii::$app->getDb();
+        /** @var  \yii\db\Connection $dbDorvei */
+        $dbDorvei = Yii::$app->get('dbDorvei');
+
+
+        $dbName  = explode('=',$db->dsn);
+        $dbName = $dbName[2];
+
+        $dbDorveiName  = explode('=',$dbDorvei->dsn);
+        $dbDorveiName = $dbDorveiName[2];
+        $id = $this->id;
+
+        $sqlArticle = <<<SQL
+CREATE TABLE IF NOT EXISTS `{$dbDorveiName}`.`{$id}_article` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `indexer_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `prev_img` varchar(255) DEFAULT NULL,
+  `prev_content` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  PRIMARY KEY (`id`)
+);
+SQL;
+;
+
+
+        $sqlSettings = <<<SQL
+DROP TABLE IF EXISTS `{$dbDorveiName}`.`{$id}_settings`;
+
+CREATE  TABLE  `{$dbDorveiName}`.`{$id}_settings` (
+ `name` varchar( 255  )  NOT  NULL ,
+ `value` text,
+ PRIMARY  KEY (  `name`  )
+ );
+
+SET SQL_MODE =  'NO_AUTO_VALUE_ON_ZERO';
+
+INSERT INTO  `{$dbDorveiName}`.`{$id}_settings` SELECT * FROM  `{$dbName}`.`dorgen_sites_settings` ;
+SQL;
+
+       $db->createCommand($sqlArticle)->execute();
+       $db->createCommand($sqlSettings)->execute();
+
+    }
+
+
+
 }
