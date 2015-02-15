@@ -56,6 +56,17 @@ if (Yii::$app->user->isGuest) {
             ],
         ]
     ];
+
+    $menuItems[] = [
+        'label' => 'Инструмены',
+        'items'=>[
+            [
+                'label' => 'Глоссарий',
+                'url' => ['/glossary/glossary/index'],
+            ],
+        ]
+    ];
+
     $menuItems[] = [
         'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
         'url' => ['/site/logout'],

@@ -46,4 +46,10 @@ class DorgenIndexerRules extends \backend\models\BackendModel
             'function' => 'Function',
         ];
     }
+
+    public function executeFunction($phpDoc) {
+        /* @var $closure \Closure */
+        $closure = eval('return '.$this->function.';');
+        return $closure($phpDoc);
+    }
 }

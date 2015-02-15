@@ -1,11 +1,11 @@
 <?php
 
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\dorgen\models\DorgenSites */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form yii\bootstrap\ActiveForm */
 ?>
 
 <div class="dorgen-sites-form">
@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status')->dropDownList([ 'active' => 'Active', 'pause' => 'Pause', 'in_progress' => 'In progress', ], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'host')->textInput(['maxlength' => 255]) ?>
+    <?= $form->field($model, 'host')->textInput(['maxlength' => 255])->label($model->getAttributeLabel('host').\backend\modules\glossary\helpers\Popover::g('dorgenSites.host')); ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

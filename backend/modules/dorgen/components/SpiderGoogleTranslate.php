@@ -91,8 +91,6 @@ class SpiderGoogleTranslate{
         $model->date_start =  new Expression('NOW()');
         $model->file_name = $model->getFileName();
 
-        return $model;
-
         return  $model->save() ? $model : false;
     }
 

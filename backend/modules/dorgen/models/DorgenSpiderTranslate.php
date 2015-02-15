@@ -10,6 +10,7 @@ use yii\helpers\FileHelper;
  *
  * @property integer $id
  * @property integer $dorgen_crawler_url_id
+ * @property integer $dorgen_site_id
  * @property string $status
  * @property string $date_start
  * @property string $date_end
@@ -41,7 +42,7 @@ class DorgenSpiderTranslate extends \backend\models\BackendModel
     {
         return [
             [['dorgen_crawler_url_id', 'status', 'file_name'], 'required'],
-            [['id', 'dorgen_crawler_url_id'], 'integer'],
+            [['id', 'dorgen_crawler_url_id', 'dorgen_site_id'], 'integer'],
             [['status', 'error_response'], 'string'],
             [['date_start', 'date_end'], 'safe'],
             [['file_name'], 'string', 'max' => 255]
@@ -56,6 +57,7 @@ class DorgenSpiderTranslate extends \backend\models\BackendModel
         return [
             'id' => 'ID',
             'dorgen_crawler_url_id' => 'Dorgen Crawler Url ID',
+            'dorgen_site_id' => 'dorgen_site_id',
             'status' => 'Status',
             'date_start' => 'Date Start',
             'date_end' => 'Date End',
@@ -102,4 +104,12 @@ class DorgenSpiderTranslate extends \backend\models\BackendModel
     public function getFilePath(){
         return  \Yii::getAlias($this->_filesFolderAlias).$this->file_name;
     }
+
+    public function beforeSave($insert)
+    {
+        $this->dorgen_site_id = $this->dorgen_site_id ? $this->dorgen_site_id : $this->crawlerUrl->dorgen_site_id;
+        return parent::beforeSave($insert);
+    }
+
+
 }

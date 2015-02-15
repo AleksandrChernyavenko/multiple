@@ -13,9 +13,17 @@ use Yii;
  * @property string $start_time
  * @property string $end_time
  * @property string $error_response
+ *
+ * @property-read DorgenIndexerRules $rules
+ * @property-read DorgenSpiderTranslate $dorgenSpiderTranslate
  */
 class DorgenIndexer extends \backend\models\BackendModel
 {
+
+    const STATUS_SUCCESS = 'success';
+    const STATUS_ERROR = 'error';
+    const STATUS_IN_WORK = 'in_work';
+
     /**
      * @inheritdoc
      */
@@ -50,5 +58,17 @@ class DorgenIndexer extends \backend\models\BackendModel
             'end_time' => 'End Time',
             'error_response' => 'Error Response',
         ];
+    }
+
+    public function getDorgenSpiderTranslate()
+    {
+        return $this->hasOne(DorgenSpiderTranslate::className(),['id'=>'dorgen_spider_translate_id']);
+    }
+
+
+    public function getRules()
+    {
+        return $this->hasMany(DorgenIndexerRules::className(),['dorgen_site_id'=>'dorgen_site_id'])
+            ->via('dorgenSpiderTranslate');
     }
 }

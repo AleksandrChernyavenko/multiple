@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\modules\dorgen\models\DorgenIndexerRules */
+/* @var $model backend\modules\glossary\models\GlossaryModel */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="dorgen-indexer-rules-form">
+<div class="glossary-model-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'dorgen_site_id')->textInput() ?>
+    <?= $form->field($model, 'code')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'attribute')->dropDownList([ 'title' => 'Title', 'content' => 'content', 'prev_img'=>'prev_img', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'function')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
